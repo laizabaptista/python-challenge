@@ -5,7 +5,7 @@
 
 ### Sobre o desafio
 #### > Na função _getCurrencyFacts_ , eu passo como parâmetro os dados e o schema.
-#### > Ela copia esses dados para uma uma outra variável chamada _currencyFacts_
+#### > Ela copia esses dados de facts para uma uma outra variável chamada _currencyFacts_
 #### > Com uma função lambda ele varre essa lista para retirar o item expirado "false" e confere se não tem nenhum mais antigo que esse para retirar também
 #### > Atribui a variavel _atributesOneToOne_ o atributo que tem a cardinalidade 1:1
 #### > Cria uma varíavel chamada _toRemove_ para guardar os itens que serão excluídos

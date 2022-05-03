@@ -22,7 +22,7 @@ schema = [
     ('telefone', 'cardinality', 'many')
 ]
    
-#remove o que contem falso
+#retorna a lista sem o "False"
 def removeFalse(facts):
     return list(filter(lambda x: False not in x,facts))
 
@@ -33,7 +33,7 @@ def deleteElements(list, removed):
 
     return list
 
-# retorna uma lista com os nomes
+# retorna uma lista com os nomes(tira a duplicidade)
 def deleteCopies(elements):
     elements = list(dict.fromkeys(elements))
     return elements
@@ -52,7 +52,7 @@ def flatList(list):
     flat_list = [item for sublist in list for item in sublist]
     return flat_list
 
-# "Pega" uma lista de atributos
+# Retorna o atributo que tem a cardinalidade 1:1
 def getAtributeList(schema, cardinality):
     atributes = list(filter(lambda x: cardinality in x, schema))
     return list(zip(*atributes))[0]
@@ -81,21 +81,21 @@ def getCurrentFacts(facts, schema):
     currentyFacts = removeFalse(currentyFacts)
     #atribui a essa variavel o atributo  que tem a cardinalidade 1:1 - no caso do exemplo é "endereço"
     atributesOneToOne = getAtributeList(schema, "one")
-    toRemoved = []
-    # "Pega" os nomes 
+    toRemove = []
+    # Retorna os nomes 
     name = list(zip(*currentyFacts))[0]
     name = deleteCopies(name)
-    #consulta cada nome , e pega os dados no nome da pessoa
+    #consulta cada nome , e pega os dados no nome da pessoa(sem duplicidade)
     for n in name:
-        registersWithName = list(filter(lambda x: n in x, currentyFacts))
+        registersName = list(filter(lambda x: n in x, currentyFacts))
     #dos itens de cada nome, ele separa só os que tem cadinalidade 1:1
         for a in atributesOneToOne:
-            selectedAtributes = list(filter(lambda x: a in x, registersWithName))
+            selectedAtributes = list(filter(lambda x: a in x, registersName))
             if len(selectedAtributes) > 0:
-                toRemoved.append(getOlder(currentyFacts, selectedAtributes))
+                toRemove.append(getOlder(currentyFacts, selectedAtributes))
     
-    toRemoved = flatList(toRemoved)
-    currentyFacts = deleteElements(currentyFacts, toRemoved)
+    toRemove = flatList(toRemove)
+    currentyFacts = deleteElements(currentyFacts, toRemove)
 
     return print(currentyFacts)
 

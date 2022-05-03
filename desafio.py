@@ -22,6 +22,15 @@ schema = [
     ('telefone', 'cardinality', 'many')
 ]
    
+#Remove todos os registros iguais e mais antigos do que o expirado
+def deleteExpired(facts, expiredElement):
+    expiredElementTrue = expiredElement[:-1] + (True,)
+
+    expiredIndex = facts.index(expiredElement)
+
+    newList = list(filter((expiredElementTrue).__ne__, facts[:expiredIndex]))
+    return newList + facts[expiredIndex:]
+
 #retorna a lista sem o "False"
 def removeFalse(facts):
     return list(filter(lambda x: False not in x,facts))
@@ -33,29 +42,21 @@ def deleteElements(list, removed):
 
     return list
 
+# Retorna o atributo que tem a cardinalidade 1:1
+def getAtributeList(schema, cardinality):
+    atributes = list(filter(lambda x: cardinality in x, schema))
+    return list(zip(*atributes))[0]
+    
 # retorna uma lista com os nomes(tira a duplicidade)
 def deleteCopies(elements):
     elements = list(dict.fromkeys(elements))
     return elements
-
-#Remove todos os registros iguais e mais antigos do que o expirado
-def deleteExpired(facts, expiredElement):
-    expiredElementTrue = expiredElement[:-1] + (True,)
-
-    expiredIndex = facts.index(expiredElement)
-
-    newList = list(filter((expiredElementTrue).__ne__, facts[:expiredIndex]))
-    return newList + facts[expiredIndex:]
 
 #cria uma lista aninhada com os itens que não vão ser exibidos
 def flatList(list):
     flat_list = [item for sublist in list for item in sublist]
     return flat_list
 
-# Retorna o atributo que tem a cardinalidade 1:1
-def getAtributeList(schema, cardinality):
-    atributes = list(filter(lambda x: cardinality in x, schema))
-    return list(zip(*atributes))[0]
 
 #Calcula o index de cada registro nos fatos e retorna todos menos o mais recente
 def getOlder(original, elements):

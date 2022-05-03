@@ -4,7 +4,7 @@
 #### Quase um ano que eu não desenvolvia nessa linguagem , a última vez foi em um treinamento da Accenture, então foi um trabalho de muita pesquisa e debugger.
 
 ### Sobre o desafio
-#### > Na função _getCurrencyFacts_ , eu passo como parâmetro os dados e o schema.
+#### > Na função _getCurrenctFacts_ , eu passo como parâmetro os dados e o schema.
 #### > Ela copia esses dados de facts para uma uma outra variável chamada _currencyFacts_
 #### > Com uma função lambda ele varre essa lista para retirar o item expirado "false" e confere se não tem nenhum mais antigo que esse para retirar também
 #### > Atribui a variavel _atributesOneToOne_ o atributo que tem a cardinalidade 1:1
